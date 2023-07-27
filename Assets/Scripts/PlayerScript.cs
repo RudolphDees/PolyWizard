@@ -45,6 +45,10 @@ public class PlayerScript : MonoBehaviour
     public int waterWaveCooldown;
     public int numberOfWaves;
     public int lightningAttackAreaSize;
+    public int numberOfGroundSlams;
+    public int earthPoundDamage;
+    public int earthPoundRadius;
+    public int earthPoundCooldown;
 
 
 
@@ -63,6 +67,7 @@ public class PlayerScript : MonoBehaviour
     public int dashesAvailable;
     public bool canLightningStrike = true;
     public bool canWaterWave = true;
+    public bool canEarthStomp = true;
     private bool isShootingFireballs = false;
     private bool isAimingLightningStike = false;
     Vector2 move;
@@ -286,8 +291,13 @@ public class PlayerScript : MonoBehaviour
 
     void EarthStomp()
     {
-        gameObject.GetComponent<SpriteRenderer>().color = getEarthColor();
-
+        if (canEarthStomp)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = getEarthColor();
+            canEarthStomp = false;
+            canMove = false;
+            StartCoroutine(EarthStompCoroutine());
+        }
     }
 
     void FireballStart()
@@ -419,6 +429,21 @@ public class PlayerScript : MonoBehaviour
         newWaveScript.numberOfWaves = numberOfWaves - 1;
         yield return new WaitForSeconds(waterWaveCooldown);
         canWaterWave = true;
+
+    }
+
+    IEnumerator EarthStompCoroutine()
+    {
+        GameObject newStomp = Instantiate(earthPoundObject);
+        newStomp.transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
+        var newStompScript = newStomp.GetComponent<EarthStompScript>();
+        newStompScript.damage = earthPoundDamage;
+        newStompScript.stompCount = numberOfGroundSlams;
+        newStompScript.radius = earthPoundRadius;
+
+        canMove = true;
+        yield return new WaitForSeconds(waterWaveCooldown);
+        canEarthStomp = true;
 
     }
 
