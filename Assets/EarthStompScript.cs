@@ -9,7 +9,7 @@ using static ConstantsAndObjects.Constants;
 public class EarthStompScript : MonoBehaviour
 {
     public int damage;
-    private float slamSpeed = .005f;
+    private float slamSpeed = .2f;
     public int stompCount;
     public float radius;
     private int currentStomps;
@@ -23,7 +23,7 @@ public class EarthStompScript : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         print(transform.localScale.x);
         if (transform.localScale.x > radius)

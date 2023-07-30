@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  movementSpeed: 0
+  movementSpeed: 100
   damageNumber: {fileID: 8277553893930303172, guid: ac5a701e84253e841a83c1f0352c115d, type: 3}
-  maxHealth: 0
+  maxHealth: 100
+  healthBar: {fileID: 0}
+  player: {fileID: 0}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3623712594068521561
+--- !u!1 &8137446855452888950
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9058845624416992142}
-  - component: {fileID: 2302386106892814058}
-  - component: {fileID: 1827531910601472438}
-  - component: {fileID: 7508334851605394436}
-  - component: {fileID: -586166624497697923}
+  - component: {fileID: 6357413376248753114}
+  - component: {fileID: 5867440346958155662}
+  - component: {fileID: 6189034436117414189}
+  - component: {fileID: 7404793926849388967}
   m_Layer: 0
-  m_Name: WaterWave
-  m_TagString: Untagged
+  m_Name: TriangleEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9058845624416992142
+--- !u!4 &6357413376248753114
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623712594068521561}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7092748, w: 0.7049322}
-  m_LocalPosition: {x: -13.3103, y: -0.3737, z: 0}
+  m_GameObject: {fileID: 8137446855452888950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.31, y: -3.43, z: -1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.352}
---- !u!212 &2302386106892814058
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &5867440346958155662
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623712594068521561}
+  m_GameObject: {fileID: 8137446855452888950}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,51 +75,24 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1827531910601472438
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!68 &6189034436117414189
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623712594068521561}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!58 &7508334851605394436
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623712594068521561}
+  m_GameObject: {fileID: 8137446855452888950}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -147,24 +119,32 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5000002
---- !u!114 &-586166624497697923
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.51026785, y: -0.2848602}
+  - {x: 0.0032033324, y: 0.582361}
+  - {x: -0.51144475, y: -0.294312}
+  - {x: 0.50894046, y: -0.2893303}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!114 &7404793926849388967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623712594068521561}
+  m_GameObject: {fileID: 8137446855452888950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc1a4e66dd49054f8c2b1b97cb36cab, type: 3}
+  m_Script: {fileID: 11500000, guid: 083121513c881f3498428c68e87155f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  direction: {x: 0, y: 0}
-  waveSpeed: 0.04
-  waveDistance: 0
-  waterWave: {fileID: 3623712594068521561}
-  numberOfWaves: 0
-  growthRate: 0.08
+  health: 15
+  movementSpeed: 0.8
+  damageNumber: {fileID: 8277553893930303172, guid: ac5a701e84253e841a83c1f0352c115d, type: 3}
+  maxHealth: 15
+  healthBar: {fileID: 0}
+  player: {fileID: 0}
+  damage: 1

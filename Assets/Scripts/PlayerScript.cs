@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Timers;
 using static ConstantsAndObjects.Constants;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerScript : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject currentLightningAttackArea;
     public GameObject currentTarget;
     public HealthBar healthBar;
+    public GameObject damageNumber;
 
     // Player Stats
     public int currentHealth;
@@ -71,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     private bool isShootingFireballs = false;
     private bool isAimingLightningStike = false;
     Vector2 move;
-    Vector2 aim;
+    Vector2 aim = new Vector2(0,1);
 
 
 
@@ -83,19 +86,19 @@ public class PlayerScript : MonoBehaviour
 
         controls = new Controls();
 
-        controls.Gameplay.Fire.performed += context => FireballStart();
+        // controls.Gameplay.Fire.performed += context => FireballStart();
 
         controls.Gameplay.Dash.performed += context => Dash();
 
-        controls.Gameplay.Water.performed += context => WaterWave();
+        // controls.Gameplay.Water.performed += context => WaterWave();
 
-        controls.Gameplay.Earth.performed += context => EarthStomp();
+        // controls.Gameplay.Earth.performed += context => EarthStomp();
 
-        controls.Gameplay.Lightning.started += context => LightningStrikeStart();
+        // controls.Gameplay.Lightning.started += context => LightningStrikeStart();
 
-        controls.Gameplay.Lightning.canceled += context => LightningStrikeEnd();
+        // controls.Gameplay.Lightning.canceled += context => LightningStrikeEnd();
 
-        controls.Gameplay.Fire.canceled += context => FireballEnd();
+        // controls.Gameplay.Fire.canceled += context => FireballEnd();
 
         controls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
 
@@ -134,19 +137,6 @@ public class PlayerScript : MonoBehaviour
                 transform.Translate(movement, Space.World); 
             }
         }
-        if (isAimingLightningStike)
-        {
-            {
-                Vector2 movement = new Vector2(move.x, move.y) * Time.deltaTime * movementSpeed;
-                currentLightningAttackArea.transform.Translate(movement, Space.World); 
-            }
-        }
-        
-        if (Mathf.Abs(move.x) > .5 || Mathf.Abs(move.y) > .5 )
-        {
-            aimDirection = new Vector2(move.x, move.y);
-            aimDirection.Normalize();
-        }
         else if (Mathf.Abs(move.x) < .5 && Mathf.Abs(move.y) < .5 && isShootingFireballs)
         {
             GameObject closestEnemy = getCurrentTarget();
@@ -174,12 +164,31 @@ public class PlayerScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotationAngle);
 
 
-        if (isShootingFireballs && canFire)
+        if (canFire)
         {
             canFire = false;
             gameObject.GetComponent<SpriteRenderer>().color = getFireColor();
             StartCoroutine(FireballCoroutine());
         }
+        if (canLightningStrike)
+        {
+            canLightningStrike = false;
+            gameObject.GetComponent<SpriteRenderer>().color = getLightningColor();
+            StartCoroutine(LightningStrikeRoutine());
+        }
+        if (canWaterWave)
+        {
+            canWaterWave = false;
+            gameObject.GetComponent<SpriteRenderer>().color = getWaterColor();
+            StartCoroutine(WaterWaveCoroutine());
+        }
+        if (canEarthStomp)
+        {
+            canEarthStomp = false;
+            gameObject.GetComponent<SpriteRenderer>().color = getEarthColor();
+            StartCoroutine(EarthStompCoroutine());
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -250,73 +259,73 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
-    void LightningStrikeStart()
-    {
-        if (canLightningStrike)
-        {
+    // void LightningStrikeStart()
+    // {
+    //     if (canLightningStrike)
+    //     {
 
-            gameObject.GetComponent<SpriteRenderer>().color = getLightningColor();
-            currentLightningAttackArea = Instantiate(lightningAttackArea);
-            currentLightningAttackArea.transform.localScale += new Vector3(lightningAttackAreaSize, lightningAttackAreaSize, 0);
-            currentLightningAttackArea.GetComponent<LightningDetectorScript>().transform.position = getCurrentTarget().transform.position;
+    //         gameObject.GetComponent<SpriteRenderer>().color = getLightningColor();
+    //         currentLightningAttackArea = Instantiate(lightningAttackArea);
+    //         currentLightningAttackArea.transform.localScale += new Vector3(lightningAttackAreaSize, lightningAttackAreaSize, 0);
+    //         enemyDetector.GetComponent<EnemyDetectorScript>().transform.position = getCurrentTarget().transform.position;
             
-            isAimingLightningStike = true;
-            canFire = false;
-            canWaterWave = false;
+    //         isAimingLightningStike = true;
+    //         canFire = false;
+    //         canWaterWave = false;
 
-        }
-    }
+    //     }
+    // }
 
-    void LightningStrikeEnd()
-    {
-        if (canLightningStrike && currentLightningAttackArea != null)
-        {
-            canLightningStrike = false;
-            canFire = true;
-            canWaterWave = true;
-            isAimingLightningStike = false;
-            StartCoroutine(LightningStrikeRoutine());
-        }
-    }
+    // void LightningStrikeEnd()
+    // {
+    //     if (canLightningStrike && currentLightningAttackArea != null)
+    //     {
+    //         canLightningStrike = false;
+    //         canFire = true;
+    //         canWaterWave = true;
+    //         isAimingLightningStike = false;
+    //         StartCoroutine(LightningStrikeRoutine());
+    //     }
+    // }
 
-    void WaterWave()
-    {
-        if (canWaterWave)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = getWaterColor();        
-            canWaterWave = false;
-            StartCoroutine(WaterWaveCoroutine());
-        }
-    }
+    // void WaterWave()
+    // {
+    //     if (canWaterWave)
+    //     {
+    //         gameObject.GetComponent<SpriteRenderer>().color = getWaterColor();        
+    //         canWaterWave = false;
+    //         StartCoroutine(WaterWaveCoroutine());
+    //     }
+    // }
 
-    void EarthStomp()
-    {
-        if (canEarthStomp)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = getEarthColor();
-            canEarthStomp = false;
-            canMove = false;
-            StartCoroutine(EarthStompCoroutine());
-        }
-    }
+    // void EarthStomp()
+    // {
+    //     if (canEarthStomp)
+    //     {
+    //         gameObject.GetComponent<SpriteRenderer>().color = getEarthColor();
+    //         canEarthStomp = false;
+    //         canMove = false;
+    //         StartCoroutine(EarthStompCoroutine());
+    //     }
+    // }
 
-    void FireballStart()
-    {
-        isShootingFireballs = true;
-        canMove = false;
-    }
+    // void FireballStart()
+    // {
+    //     isShootingFireballs = true;
+    //     canMove = false;
+    // }
 
-    void FireballEnd()
-    {
-        isShootingFireballs = false;
-        canMove = true;
-    }
+    // void FireballEnd()
+    // {
+    //     isShootingFireballs = false;
+    //     canMove = true;
+    // }
 
     IEnumerator LightningStrikeRoutine()
     {
         currentCount = 0;
         List<GameObject> listOfTargets = new List<GameObject>(lightningStikeCount);
-        Dictionary<int, GameObject> selectedEnemies = currentLightningAttackArea.GetComponent<LightningDetectorScript>().enemyDictionary;
+        Dictionary<int, GameObject> selectedEnemies =  enemyDetector.GetComponent<EnemyDetectorScript>().enemyDictionary;
         foreach (var enemyPair in selectedEnemies)
         {   
             GameObject enemy = enemyPair.Value;
@@ -460,5 +469,21 @@ public class PlayerScript : MonoBehaviour
     GameObject getCurrentTarget()
     {
         return enemyDetector.GetComponent<EnemyDetectorScript>().closestEnemy;
+    }
+
+    public void takeDamage(int damage, Color damageColor)
+    {
+        currentHealth -= damage;
+        GameObject newDamageNumber = Instantiate(damageNumber);
+        newDamageNumber.GetComponent<DamageNumberScript>().damage = damage;
+        newDamageNumber.GetComponent<DamageNumberScript>().color = damageColor;
+        newDamageNumber.transform.position = gameObject.transform.position + new Vector3(0, .6f, 0);
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(0);
+        }
+        healthBar.SetHealth(currentHealth);
+        
     }
 }

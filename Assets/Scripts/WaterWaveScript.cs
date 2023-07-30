@@ -8,12 +8,12 @@ public class WaterWaveScript : MonoBehaviour
 {
     public int damage;
     public Vector2 direction;
-    public float waveSpeed = .1f;
+    private float waveSpeed = .04f;
     public float waveDistance;
     public GameObject waterWave;
     public int numberOfWaves;
     private bool gettingBrighter = true;
-    public float growthRate = .4f;
+    private float growthRate = .08f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +23,7 @@ public class WaterWaveScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Color currentColor = GetComponent<SpriteRenderer>().color;
         float currentTransperancy = currentColor.a;

@@ -13,10 +13,10 @@ public class DamageNumberScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         GetComponent<TMPro.TextMeshPro>().text = damage.ToString();
-        gameObject.transform.position = transform.position + new Vector3(0, .0005f, 0);
+        gameObject.transform.position = transform.position + new Vector3(0, .005f, 0);
         Color currentColor = GetComponent<TMPro.TextMeshPro>().color;
         if (currentColor.a <= 0)
         {
@@ -24,7 +24,7 @@ public class DamageNumberScript : MonoBehaviour
         }
         else
         {
-            Color newColor = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a - .001f);
+            Color newColor = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a - .005f);
             GetComponent<TMPro.TextMeshPro>().color = newColor;
         }
         

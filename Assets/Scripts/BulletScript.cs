@@ -28,7 +28,10 @@ public class BulletScript : MonoBehaviour
             {
                 collision.gameObject.GetComponent<EnemyScript>().takeDamage(damage, getFireColor());
             }
-            Destroy(gameObject);
+            else if (collision.gameObject.tag == "Barrier")
+            {
+                Destroy(gameObject);
+            }
         }
     }
     

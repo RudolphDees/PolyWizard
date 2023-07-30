@@ -7,7 +7,7 @@ public class LightningStikeScript : MonoBehaviour
 {
     public int damage;
     public GameObject target;
-    private float strikeSpeed = .005f;
+    private float strikeSpeed = .05f;
     private bool gettingBrighter = true;
     
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class LightningStikeScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Color currentColor = GetComponent<SpriteRenderer>().color;
         float currentTransperancy = currentColor.a;
